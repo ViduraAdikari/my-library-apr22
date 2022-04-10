@@ -1,0 +1,98 @@
+$h2-color: #2c3339;
+$list-item-hover-bg: #f5f5f5;
+$click-me-color: #13479b;
+$h3-color: #39675c;
+$close-icon-color: #1b1b1b;
+$input-border-color: #a4a4a4;
+
+.author-section {
+  padding-bottom: 10em;
+
+  h2 {
+    font-size: 2.7em;
+    font-weight: 500;
+    color: $h2-color;
+    border-bottom: 2px solid $h2-color;
+  }
+
+  .empty-label {
+    font-style: italic;
+    font-size: 1.2em;
+  }
+
+  .author {
+    &:hover {
+      background-color: $list-item-hover-bg;
+
+      i {
+        display: inline-block;
+      }
+    }
+
+    label {
+      font-size: 1.3em;
+    }
+
+    i {
+      font-size: 1.5em;
+      cursor: pointer;
+      display: none;
+    }
+  }
+
+  .add-author {
+    cursor: pointer;
+
+    i {
+      color: $click-me-color;
+      font-size: 1.7em;
+    }
+    label {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 1.2em;
+    }
+  }
+
+  .author-form {
+    h3 {
+      color: $h3-color;
+      font-size: 1.6em;
+      font-weight: 500;
+      border-bottom: 2px solid $h3-color;
+      display: inline-block;
+    }
+
+    i {
+      font-size: 1.5em;
+      color: $close-icon-color;
+      cursor: pointer;
+    }
+
+    .form-label {
+      font-size: .8em;
+    }
+
+    .form-control {
+      border-radius: 0;
+      border: 2px solid $input-border-color;
+    }
+
+    .btn {
+      border-radius: 6px;
+      padding: 4px 20px;
+      background-color: $click-me-color;
+      font-weight: 500;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
