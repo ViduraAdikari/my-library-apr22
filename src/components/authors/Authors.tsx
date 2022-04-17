@@ -4,8 +4,11 @@ import AuthorTitle from "./AuthorTitle";
 import AuthorList from "./AuthorList";
 import AddAuthor from "./AddAuthor";
 import AuthorForm from "./AuthorForm";
+import {IAuthor} from "../../types/libraryTypes";
 
 const Authors: React.FC = () => {
+
+  const [authors, setAuthors] = useState<IAuthor[] | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleAddAuthor = () => {
@@ -16,13 +19,30 @@ const Authors: React.FC = () => {
     setIsFormVisible(false);
   }
 
+  const handleAuthorCreate = (newAuthor: IAuthor) => {
+    const allAuthors: IAuthor[] = authors ? authors.slice() : [];
+    allAuthors.push(newAuthor);
+    setAuthors(allAuthors);
+  }
+
+  const handleOnDeleteAuthorClick = (index: number) => {
+    if (!authors) {
+      return;
+    }
+
+    const allAuthors: IAuthor[] = authors.slice();
+    allAuthors.splice(index, 1);
+    setAuthors(allAuthors);
+  };
+
+
   return (
     <Row className='author-section'>
       <AuthorTitle/>
-      <AuthorList/>
+      <AuthorList authors={authors} onDeleteClick={handleOnDeleteAuthorClick}/>
       <AddAuthor onAddAuthorClicked={handleAddAuthor}/>
 
-      {isFormVisible && <AuthorForm onCloseClick={handleCloseForm}/>}
+      {isFormVisible && <AuthorForm onCloseClick={handleCloseForm} onAuthorCreated={handleAuthorCreate}/>}
     </Row>
   )
 };
