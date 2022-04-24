@@ -1,15 +1,28 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {Col, Row, Form, Button} from "react-bootstrap";
 import {IAuthor} from "../../types/libraryTypes";
 
 type AuthorFormProps = {
   onCloseClick: () => void
   onAuthorCreated: (newAuthor: IAuthor) => void
+  authorToUpdate: IAuthor | null
+  onAuthorUpdated: (updatedAuthor: IAuthor) => void
 }
 
 const AuthorForm: React.FC<AuthorFormProps> = (props) => {
 
+  const {authorToUpdate} = props;
+
   const [authorName, setAuthorName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!authorToUpdate) {
+      setAuthorName(null);
+      return;
+    }
+
+    setAuthorName(authorToUpdate.name);
+  }, [authorToUpdate]);
 
   const handleAuthorNameChange = (name: string) => {
     setAuthorName(name);
@@ -19,6 +32,12 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
     event.preventDefault();
 
     if (!authorName) {
+      return;
+    }
+
+    if (authorToUpdate) {
+      const updatedAuthor: IAuthor = {...authorToUpdate, name: authorName};
+      props.onAuthorUpdated(updatedAuthor);
       return;
     }
 
@@ -32,7 +51,7 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
     <Col xs={9} className='author-form mt-5'>
       <Row>
         <Col xs={10}>
-          <h3>Create Author</h3>
+          <h3>{authorToUpdate ? 'Update' : 'Create'} Author</h3>
         </Col>
         <Col xs={2} className='d-flex align-items-center justify-content-end'>
           <i className="feather-x-circle" onClick={props.onCloseClick}/>
@@ -50,7 +69,7 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
           </Col>
 
           <Col xs={12} className='text-end mt-2'>
-            <Button type="submit">Create</Button>
+            <Button type="submit">{authorToUpdate ? 'Update' : 'Create'}</Button>
           </Col>
         </Form>
 
