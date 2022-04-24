@@ -6,6 +6,7 @@ import {IAuthor} from "../../types/libraryTypes";
 type AuthorListProps = {
   authors: IAuthor[] | null
   onDeleteClick: (index: number) => void
+  onUpdateClick: (index: number) => void
 }
 
 const AuthorList: React.FC<AuthorListProps> = (props) => {
@@ -19,7 +20,8 @@ const AuthorList: React.FC<AuthorListProps> = (props) => {
 
     return authors.map((author: IAuthor, index: number) =>
       <li className='author py-2' key={index}>
-        <Author num={index + 1} authorName={author.name} onDeleteClick={props.onDeleteClick}/>
+        <Author num={index + 1} authorName={author.name} onDeleteClick={props.onDeleteClick}
+                onAuthorUpdateClick={props.onUpdateClick}/>
       </li>);
   }
 
